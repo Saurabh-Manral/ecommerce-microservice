@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: ProductService
+    
+  datasource:
+    url: jdbc:postgresql://localhost:3307/microProduct
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+     
+server:
+  port: 1235
+  
+eureka:
+  instance:
+    prefer-ip-address: true
+    
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:1237/eureka

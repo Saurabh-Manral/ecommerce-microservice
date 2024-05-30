@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: OrderService
+    
+  datasource:
+    url: jdbc:mysql://localhost:3306/microrder
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    
+  jpa:
+    hibernate:
+      ddl-auto: update
+      
+server:
+  port: 1236
+  
+eureka:
+  instance:
+    prefer-ip-address: true
+    
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:1237/eureka
+      
+resilience4j:
+  circuitbreaker:
+    instances:
+      orderProductCircuitBreaker:
+        event-consumer-buffer-size: 10
+        failure-rate-threshold: 50
+        minimum-number-of-calls: 5
+        automatic-transition-from-open-to-half-open-enabled: true
+        wait-duration-in-open-state: 5s
+        permitted-number-of-calls-in-half-open-state: 4
+        sliding-window-size: 10
+        sliding-window-type: COUNT_BASED
+        
+  retry:
+    instances:
+      orderProductRetry:
+        max-attempts: 3
+        wait-duration: 2s
